@@ -117,6 +117,15 @@ public:
                            uint8_t address);
 
     // --------------------------------------------------------
+    //  Address Management
+    // --------------------------------------------------------
+    /**
+     * Reassign a DALI device from oldAddress to newAddress.
+     * Returns true if the device successfully responds at the new address.
+     */
+    bool changeShortAddress(int oldAddress, int newAddress);
+
+    // --------------------------------------------------------
     //  DTR helpers (public - needed by application layer too)
     // --------------------------------------------------------
     void setDTR0(uint8_t value);
@@ -141,6 +150,9 @@ private:
     rmt_channel_t   _rx_ch;
     RingbufHandle_t _rx_ringbuf;
     bool            _ready;
+
+    // Non-blocking wait that keeps ESP32 background tasks (WiFi/WebSockets) alive
+    void Wait(unsigned long ms);
 
     // Manchester decode scratch-pad
     int           _receivedBits[9];

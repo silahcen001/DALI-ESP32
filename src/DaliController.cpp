@@ -713,10 +713,65 @@ int DaliController::queryGroups8_15(int address)
     return receiveResponse();
 }
 
+void DaliController::Wait(unsigned long ms) {
+    unsigned long start = millis();
+    while (millis() - start < ms) {
+        yield();
+    }
+}
+
 // ============================================================
 //  isDevicePresent()
 // ============================================================
 bool DaliController::isDevicePresent(int address)
 {
     return queryStatus(address) >= 0;
+}
+
+// ============================================================
+//  Address Management
+// ============================================================
+bool DaliController::changeShortAddress(int oldAddress, int newAddress)
+{
+    // Validate inputs
+    if (oldAddress < 0 || oldAddress > 63 || newAddress < 0 || newAddress > 63) {
+        Serial.println(F("[DALI] Address out of range. Must be 0-63."));
+        return false;
+    }
+
+    Serial.print(F("[DALI] Changing short address from "));
+    Serial.print(oldAddress);
+    Serial.print(F(" to "));
+    Serial.println(newAddress);
+
+    // Step 1: Set DTR0 with the encoded new address value
+    uint8_t dtrValue = (uint8_t)((newAddress << 1) | 0x01);
+    setDTR0(dtrValue);
+    
+    // Give the device a brief moment to process the DTR broadcast
+    Wait(50); 
+
+    // Step 2: Program Short Address from DTR (Command 128 / 0x80)
+    // Send command to oldAddress. MUST be sent twice within 100ms.
+    uint8_t frame[17];
+    buildFrame(frame, (uint8_t)oldAddress, false, 0x80, true);
+    
+    sendRawCommand(frame);
+    Wait(75);
+    sendRawCommand(frame);
+    
+    // Wait for the address change to take effect in the hardware
+    Wait(100);
+
+    // Step 3: Verify the device now answers at the newAddress
+    bool success = isDevicePresent(newAddress);
+
+    if (success) {
+        Serial.print(F("[DALI] Success! Device now responds at address "));
+        Serial.println(newAddress);
+    } else {
+        Serial.println(F("[DALI] FAILED. Device did not respond at new address."));
+    }
+
+    return success;
 }
