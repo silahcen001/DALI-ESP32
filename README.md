@@ -17,7 +17,7 @@ Most DALI libraries for Arduino rely on software timers or CPU-busy loops to gen
 
 ## Compatibility
 
-> ⚠️ **ESP32 family only.**
+>  **ESP32 family only !!**
 >
 > This library uses the ESP32 RMT peripheral via the ESP-IDF `driver/rmt.h` API and is **not** compatible with AVR (Uno, Mega), SAMD, STM32, or other architectures.
 
@@ -177,6 +177,18 @@ Brightness values are expressed as a **percentage (0–100)** and mapped to the 
 |--------|-------------|
 | `setFadeTime(address, fadeTime)` | Set fade time at address (DALI fade time code, 0–15). |
 | `setFadeRate(address, fadeRate)` | Set fade rate at address (DALI fade rate code, 1–15). |
+
+---
+
+### Address Management
+
+| Method | Description |
+|--------|-------------|
+| `changeShortAddress(oldAddress, newAddress)` | Reassigns a DALI device from `oldAddress` to `newAddress`. Returns `true` if successful. |
+
+>  **!! CRITICAL WARNING: Changing Addresses !!**
+> 
+> The `changeShortAddress` function relies on DTR broadcast commands. To prevent accidentally overwriting the addresses of other devices on the network, **you must disconnect all other ballasts from the DALI bus** and leave ONLY the single ballast you wish to reprogram connected.
 
 ---
 
