@@ -3,7 +3,7 @@
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-brightgreen.svg)](https://www.espressif.com/en/products/socs/esp32)
 [![PlatformIO Compatible](https://img.shields.io/badge/PlatformIO-Compatible-orange.svg)](https://platformio.org/)
 
-A clean, efficient C++ library for controlling DALI (Digital Addressable Lighting Interface, IEC 62386) devices from an ESP32, built entirely on the ESP32's hardware **RMT (Remote Control) peripheral**.
+A library for controlling DALI (Digital Addressable Lighting Interface, IEC 62386) devices from an ESP32, built entirely on the ESP32's hardware **RMT (Remote Control) peripheral**.
 
 ---
 
