@@ -44,6 +44,10 @@ void setup() {
     
     Serial.println("Testing OLD address: turning OFF");
     dali.setBrightness(OLD_ADDRESS, 0);
+    // Note: Many DALI drivers ignore dimming levels
+    // below their hardcoded physical minimum (e.g., 6%)
+    // so sending 0% will not turn them off.use this:
+    //dali.turnOffAddress(OLD_ADDRESS);
     delay(2000);
 
     // 2. Attempt to change the address
@@ -73,5 +77,9 @@ void loop() {
     Serial.print("Turning OFF address ");
     Serial.println(activeAddress);
     dali.setBrightness(activeAddress, 0);
+    // Note: Many DALI drivers ignore dimming levels
+    // below their hardcoded physical minimum (e.g., 6%)
+    // so sending 0% will not turn them off.use this:
+    //dali.turnOffAddress(OLD_ADDRESS);
     delay(2000);
 }
