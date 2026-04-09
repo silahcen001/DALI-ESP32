@@ -38,15 +38,19 @@ void loop() {
     dali.setBrightness(TARGET_ADDRESS, 100);
     delay(3000); // Wait 3 seconds
 
-    // 2. Dim the specific LED to 25%
+    // 2. Dim the specific LED to 50
     Serial.print("Dimming address ");
     Serial.println(TARGET_ADDRESS);
-    dali.setBrightness(TARGET_ADDRESS, 25);
+    dali.setBrightness(TARGET_ADDRESS, 50);
     delay(3000); // Wait 3 seconds
 
     // 3. Turn the specific LED OFF (0%)
     Serial.print("Turning OFF address ");
     Serial.println(TARGET_ADDRESS);
     dali.setBrightness(TARGET_ADDRESS, 0);
+    // Note: Many DALI drivers ignore dimming levels
+    // below their hardcoded physical minimum (e.g., 6%)
+    // so sending 0% will not turn them off.use this:
+    //dali.turnOffAddress(TARGET_ADDRESS);
     delay(3000); // Wait 3 seconds
 }
