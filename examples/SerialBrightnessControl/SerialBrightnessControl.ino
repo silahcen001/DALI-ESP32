@@ -28,7 +28,7 @@ void setup() {
     Serial.println("Starting DALI Single Address Example...");
 
     // Initialize the DALI bus
-    dali.begin(DALI_TX_PIN, DALI_RX_PIN)
+    dali.begin(DALI_TX_PIN, DALI_RX_PIN);
 }
 
 void loop() {
