@@ -2,7 +2,6 @@
 //  DaliController.cpp
 //
 //  Hardware implementation of the DALI (IEC 62386) library.
-//  No WebSockets. No ArduinoJson. Pure hardware abstraction.
 // ============================================================
 
 #include "DaliController.h"
@@ -690,7 +689,7 @@ int DaliController::queryDeviceType(int address)
 }
 
 // ============================================================
-//  queryGroups0_7()  /  queryGroups8_15()  (Option A)
+//  queryGroups0_7()  /  queryGroups8_15()
 //
 //  Returns an 8-bit bitmask:
 //    queryGroups0_7:   bit0=group0, bit1=group1, ..., bit7=group7
