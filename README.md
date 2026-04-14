@@ -40,7 +40,7 @@ Add the library to your `platformio.ini`:
 platform  = espressif32
 board     = esp32dev
 framework = arduino
-lib_deps  = https://github.com/silahcen001/DaliController.git
+lib_deps  = https://github.com/silahcen001/DALI-ESP32.git
 ```
 
 ### Arduino IDE
